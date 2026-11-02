@@ -1,0 +1,5 @@
+seed,model,test_accuracy,precision_class1,recall_class1,f1_class1,time_seconds
+7,Centralized ViT,0.887821,0.849345,0.997436,0.917453,376.142489
+7,Federated FedAvg,0.902244,0.874715,0.984615,0.926417,387.158865
+21,Centralized ViT,0.86859,0.82906,0.994872,0.904429,378.234316
+21,Federated FedAvg,0.911859,0.883295,0.989744,0.933495,388.115728

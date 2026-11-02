@@ -1,0 +1,19 @@
+{
+  "dataset": "pneumoniamnist",
+  "image_size": 224,
+  "num_classes": 2,
+  "batch_size": 8,
+  "learning_rate": 1e-05,
+  "weight_decay": 0.01,
+  "num_clients": 3,
+  "communication_rounds": 2,
+  "local_epochs": 1,
+  "primary_centralized_epochs": 3,
+  "matched_centralized_epochs": 2,
+  "seeds_for_repeatability": [
+    7,
+    21
+  ],
+  "seed_for_matched": 42,
+  "positive_class_for_metrics": 1
+}
