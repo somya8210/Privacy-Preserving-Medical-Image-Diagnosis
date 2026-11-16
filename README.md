@@ -11,6 +11,7 @@ This project compares a centrally trained ViT model with a federated setup in wh
 - **Framework:** PyTorch
 - **Federated setup:** 3 simulated IID clients, FedAvg
 - **Optimizer:** AdamW
+- **Demo:** Streamlit application in `app.py`
 
 > **Scope note:** This repository documents a single-machine federated-learning simulation. It does not demonstrate deployment across independent hospitals or prove formal privacy guarantees such as differential privacy or secure aggregation. Model updates are exchanged in the simulation; privacy claims should therefore be appropriately limited.
 
@@ -18,6 +19,7 @@ This project compares a centrally trained ViT model with a federated setup in wh
 
 ```text
 .
+├── app.py
 ├── notebooks/
 │   └── Federated_ViT_Medical_Diagnosis.ipynb
 ├── src/
@@ -26,28 +28,14 @@ This project compares a centrally trained ViT model with a federated setup in wh
 │   ├── metrics.py
 │   └── model.py
 ├── results/
-│   ├── README.md
-│   ├── notebook_primary_results.csv
-│   ├── notebook_matched_comparison.csv
-│   └── notebook_reproducibility_runs.csv
 ├── docs/
-│   └── methodology.md
 ├── config.json
 ├── requirements.txt
 ├── run_experiments.py
 └── .gitignore
 ```
 
-## Recorded results
-
-The uploaded notebook contains separate experiment tracks. Keep them separate when reporting results:
-
-- Primary run: centralized test accuracy **86.54%**; federated test accuracy **91.67%**.
-- Matched-initialization comparison: centralized **89.42%**; federated **86.38%**.
-
-These are notebook-recorded outputs, not results independently re-executed during repository organization. See the CSV files in `results/` and the notebook for context.
-
-## Getting started
+## Run the Streamlit demo
 
 1. Clone this repository:
    ```bash
@@ -59,9 +47,26 @@ These are notebook-recorded outputs, not results independently re-executed durin
    ```bash
    pip install -r requirements.txt
    ```
-4. Open `notebooks/Federated_ViT_Medical_Diagnosis.ipynb` in Google Colab or Jupyter.
+4. Obtain the trained checkpoint from your project owner/experiment storage and place it at:
+   ```text
+   checkpoints/primary_fedavg.pth
+   ```
+   The checkpoint is intentionally excluded from Git because it is approximately 327 MB. The app will show an explanatory error if the file is missing.
+5. Launch the app:
+   ```bash
+   streamlit run app.py
+   ```
 
-The notebook is the primary record of the experiment. The scripts in `src/` and `run_experiments.py` provide organized project code; check configuration and dataset paths before running locally.
+The demo runs inference on CPU by default. It accepts JPG, JPEG, and PNG images. The app uses the same 224 × 224 resize, grayscale-to-three-channel conversion, and ImageNet normalization used by the model pipeline.
+
+## Recorded results
+
+The uploaded notebook contains separate experiment tracks. Keep them separate when reporting results:
+
+- Primary run: centralized test accuracy **86.54%**; federated test accuracy **91.67%**.
+- Matched-initialization comparison: centralized **89.42%**; federated **86.38%**.
+
+A separate Colab demo evaluation recorded test accuracy **91.19%**, pneumonia precision **89.23%**, recall **97.69%**, and F1-score **93.27%** on 624 test images. These results belong to that specific run and should not be conflated with the notebook-recorded experiment tracks. See the CSV files in `results/` and the notebook for their context.
 
 ## Data and reproducibility
 
@@ -73,6 +78,7 @@ PneumoniaMNIST is a public dataset distributed through MedMNIST. Follow its offi
 - The experiment uses a small number of clients and communication rounds.
 - Results should not be interpreted as clinical validation or evidence of deployment-ready medical diagnosis.
 - A FedAvg simulation alone does not provide formal privacy guarantees.
+- The Streamlit app is an academic research demonstration, not a medical diagnostic device.
 
 ## Citation
 
